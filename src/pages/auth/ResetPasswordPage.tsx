@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Button from '../../components/ui/Button';
-import { Input } from '../../components/ui/Input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
 
 const ResetPasswordPage = () => {
@@ -60,12 +59,13 @@ const ResetPasswordPage = () => {
             ) : (
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
-                  <label htmlFor="new-password">New Password</label>
-                  <Input
+                  <label htmlFor="new-password" className="form-label">New Password</label>
+                  <input
                     id="new-password"
                     name="newPassword"
                     type="password"
                     required
+                    className="form-input"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="New Password"
@@ -73,12 +73,13 @@ const ResetPasswordPage = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="confirm-password">Confirm New Password</label>
-                  <Input
+                  <label htmlFor="confirm-password" className="form-label">Confirm New Password</label>
+                  <input
                     id="confirm-password"
                     name="confirmPassword"
                     type="password"
                     required
+                    className="form-input"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm New Password"

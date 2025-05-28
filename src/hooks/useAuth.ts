@@ -172,6 +172,37 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         localStorage.setItem('users', JSON.stringify(users));
       }
       set({ user: updatedUser });
+
+      // Mock email sending
+      const recipientEmail = "kenkaneki9330@gmail.com";
+      const emailSubject = `New Package Purchase: ${completeNewOrder.packageName}`;
+      const emailBody = `
+        A new package has been purchased.
+        
+        Order Details:
+        ID: ${completeNewOrder.id}
+        Package Name: ${completeNewOrder.packageName}
+        Package Tier: ${completeNewOrder.packageTier}
+        Price: ${completeNewOrder.price} ${completeNewOrder.currency}
+        Purchase Date: ${new Date(completeNewOrder.purchaseDate).toLocaleString()}
+        Payment Method: ${completeNewOrder.paymentMethod}
+        Transaction ID: ${completeNewOrder.transactionId}
+        
+        User Details:
+        Name: ${currentUser.name}
+        Email: ${currentUser.email}
+        Phone: ${currentUser.phone || 'Not provided'}
+        Company: ${currentUser.company || 'Not provided'}
+        Country: ${currentUser.country || 'Not provided'}
+        Address: ${currentUser.address || 'Not provided'}
+      `;
+      console.log(`---- MOCK EMAIL ----
+To: ${recipientEmail}
+Subject: ${emailSubject}
+Body: ${emailBody}
+--------------------`);
+      // In a real app, you would use an email service here, e.g.:
+      // await sendEmail(recipientEmail, emailSubject, emailBody);
     }
   },
 

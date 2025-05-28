@@ -135,54 +135,6 @@ const ProfilePage = () => {
       setIsChangingPassword(false);
     }
   };
-
-  const handleSend2FACode = async () => {
-    if (!user?.email) return;
-    setTwoFactorError('');
-    setTwoFactorMessage('');
-    setIsSettingUp2FA(true);
-    try {
-      await sendTwoFactorCode(user.email);
-      setTwoFactorMessage('A 2FA code has been sent to your email.');
-    } catch (err: any) {
-      setTwoFactorError(err.message || 'Failed to send 2FA code.');
-    } finally {
-      // Keep isSettingUp2FA true to show the code input field
-    }
-  };
-
-  const handleVerify2FACode = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user?.email || !twoFactorCode) return;
-    setTwoFactorError('');
-    setTwoFactorMessage('');
-    setIsVerifying2FA(true);
-    try {
-      const success = await verifyTwoFactorCode(user.email, twoFactorCode);
-      if (success) {
-        setTwoFactorMessage('2FA enabled successfully!');
-        setTwoFactorEnabled(true);
-        localStorage.setItem(`2faEnabled_${user.email}`, 'true');
-        setIsSettingUp2FA(false); // Hide setup form
-        setTwoFactorCode('');
-      } else {
-        setTwoFactorError('Invalid or expired 2FA code.');
-      }
-    } catch (err: any) {
-      setTwoFactorError(err.message || 'Failed to verify 2FA code.');
-    } finally {
-      setIsVerifying2FA(false);
-    }
-  };
-
-  const handleDisable2FA = () => {
-    if (!user?.email) return;
-    // In a real app, might require password confirmation
-    localStorage.removeItem(`2faEnabled_${user.email}`);
-    setTwoFactorEnabled(false);
-    setTwoFactorMessage('2FA has been disabled.');
-    toast.success('Two-Factor Authentication disabled.');
-  };
   
   return (
     <div>

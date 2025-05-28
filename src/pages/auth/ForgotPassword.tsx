@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Button from '../../components/ui/Button';
-import { Input } from '../../components/ui/Input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card';
 
 const ForgotPasswordPage = () => {
@@ -37,13 +36,14 @@ const ForgotPasswordPage = () => {
           <CardContent>
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="email" className="sr-only">Email address</label>
-                <Input
+                <label htmlFor="email" className="form-label sr-only">Email address</label>
+                <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
+                  className="form-input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
